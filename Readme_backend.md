@@ -1,4 +1,4 @@
-# Introduction to DanceScoring Backend
+# Introduction to Gymnastics Scoring Backend
 
 This project uses the SpringBoot framework.
 
