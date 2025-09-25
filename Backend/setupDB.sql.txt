@@ -1,0 +1,202 @@
+use danceScoring;
+drop table AlbumsPurchase;
+drop table Albums;
+drop table User;
+drop table StarVerify;
+
+#收集数据阶段暂时使用下表
+Create table User (user_id bigint primary key,
+user_identity int,
+user_name char(30),
+user_avatar char(100),
+user_telephone char(11) unique,
+user_qq char(11) unique,
+user_wechat char(30) unique,
+user_password char(64),
+user_sex char(6),
+user_province char(20),
+user_city char(20),
+user_town char(20),
+verify_name char(30),
+user_level  int not null,
+user_exp    int not null,
+learn_times int not null,
+eval_times  int not null,
+share_times int not null,
+wallet double not null
+);
+
+Create table StarVerify (
+  verify_id int primary key auto_increment,
+  user_id bigint,
+  verify_name char(30),
+  file_person char(100),
+  file_emblem char(100),
+  admin_id bigint,
+  state int
+);
+# state 0-未处理 1-同意 2-不同意
+
+Use danceScoring;
+
+
+Create table Music (
+	music_id char(6) Primary key,
+	name char(30),
+  author char(30),
+  category char(30),
+	path char(100),
+  views bigint
+);
+
+INSERT INTO Music VALUES  ('000000', 'revolution', 'zzy', 'dj', 'C:\\Users\\shower\\Desktop\\The Score - Revolution.mp3.mp3', 0);
+
+Use danceScoring;
+/*暂时这样写，测试用，后面视功能修改*/
+create table evaluation (
+    eval_id int primary key auto_increment,
+    user_id bigint,
+    teach_id int,
+    dance_id int,
+    eval_time timestamp default current_timestamp on update current_timestamp,
+    eval_path char(100),
+    ai_total_score int default -1,
+    ai_head_neck int default -1,
+    ai_left_arm int default -1, 
+    ai_right_arm int default -1,
+    ai_chest_belly int default -1, 
+    ai_waist_hip int default -1, 
+    ai_left_leg int default -1,
+    ai_right_leg int default -1,
+    ai_rhythm int default -1,
+    manual_total_score int default -1,
+    manual_head_neck int default -1,
+    manual_left_arm int default -1, 
+    manual_right_arm int default -1,
+    manual_chest_belly int default -1, 
+    manual_waist_hip int default -1, 
+    manual_left_leg int default -1,
+    manual_right_leg int default -1,
+    manual_rhythm int default -1,
+  	dance_name char(50),
+    tution_name char(50),
+    tution_id bigint
+);
+INSERT INTO evaluation (user_id, eval_path) 
+
+Use danceScoring;
+/*暂时这样写，测试用，后面视功能修改*/
+create table evaluationplan (
+   turtiol_id int,
+   eval_name char(50),
+   userid bigint
+);
+
+Use danceScoring;
+/*暂时这样写，测试用，后面视功能修改*/
+CREATE TABLE musiclist (
+  list_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  user_id BIGINT,
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  createTime DATE default current_date
+);
+
+CREATE TABLE musiclist_music (
+  musiclist_id BIGINT,
+  music_id BIGINT,
+  FOREIGN KEY (musiclist_id) REFERENCES musiclist(list_id),
+  FOREIGN KEY (music_id) REFERENCES music(music_id),
+  PRIMARY KEY (musiclist_id, music_id)
+);
+
+Use danceScoring;
+
+CREATE TABLE Albums (
+  picture_id int PRIMARY KEY AUTO_INCREMENT,
+  picture_url varchar(100) NOT NULL,
+  user_id bigint NOT NULL,
+  comp_id int unsigned NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES User(user_id),
+  FOREIGN KEY (comp_id) REFERENCES competition(comp_id),
+  upload_date timestamp default current_timestamp on update current_timestamp,
+  share_times int DEFAULT 0,
+  scan_times int DEFAULT 0,
+  price float DEFAULT 0.0
+);
+
+CREATE TABLE AlbumsPurchase (
+  purchase_id int PRIMARY KEY AUTO_INCREMENT,
+  user_id bigint NOT NULL,
+  picture_id int NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES User(user_id),
+  FOREIGN KEY (picture_id) REFERENCES Albums(picture_id),
+  purchase_date timestamp default current_timestamp on update current_timestamp,
+  price float DEFAULT 0.0,
+  introduction varchar(100)
+);
+
+Use danceScoring;
+
+CREATE TABLE competition(
+`comp_id` INT UNSIGNED AUTO_INCREMENT,
+`comp_title` VARCHAR(100) NOT NULL,
+`comp_status` boolean,
+`comp_date` DATE,
+`comp_signup_start` DATE,
+`comp_signup_end` DATE,
+`comp_location` VARCHAR(255),
+`comp_contact` VARCHAR(255),
+`comp_charter_url` VARCHAR(255),
+`comp_group_url` VARCHAR(255),
+`comp_entry_fee` FLOAT UNSIGNED,
+PRIMARY KEY ( comp_id )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into competition(comp_title) values ("赛事测试");
+
+Use danceScoring;
+
+CREATE TABLE MainAds (
+   ad_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   image_url VARCHAR(255),
+   description VARCHAR(100),
+   order_num INT
+);
+
+CREATE TABLE StarAds (
+   ad_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   image_url VARCHAR(255),
+   description VARCHAR(100),
+   order_num INT
+);
+
+CREATE TABLE StarRec (
+   rec_id INT NOT NULL PRIMARY KEY,
+   user_id BIGINT,
+  FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+Insert into StarRec(rec_id, user_id) values(0, null);
+Insert into StarRec(rec_id, user_id) values(1, null);
+Insert into StarRec(rec_id, user_id) values(2, null);
+Insert into StarRec(rec_id, user_id) values(3, null);
+Insert into StarRec(rec_id, user_id) values(4, null);
+Insert into StarRec(rec_id, user_id) values(5, null);
+Insert into StarRec(rec_id, user_id) values(6, null);
+Insert into StarRec(rec_id, user_id) values(7, null);
+
+Use danceScoring;
+
+CREATE TABLE video(
+video_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+video_url VARCHAR(100) NOT NULL,
+cover_url VARCHAR(100) NOT NULL, 
+caption VARCHAR(100) NOT NULL,
+playcount VARCHAR(100) NOT NULL,
+user_id bigint
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into video(video_url, cover_url, caption, playcount, user_id) values ("https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4", 
+                                                                                  "http://t13.baidu.com/it/u=1386960595,2126371664&fm=224&app=112&f=JPEG?w=500&h=500",
+                                                                                  "我是标题", 1, 1231);

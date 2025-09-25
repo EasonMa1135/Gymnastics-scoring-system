@@ -1,0 +1,60 @@
+name: dance_scoring
+description: The Dance Scoring Frontend UI
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 3.7.7
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  file_picker: ^5.2.6
+  flutter:
+    sdk: flutter
+  http: ^0.13.5
+  fluttertoast: ^8.2.1
+
+  image_picker: ^0.8.7
+  image_cropper: ^3.0.2
+  video_player: ^2.6.0
+  dio: ^5.0.3
+  json_annotation: ^4.4.0
+  intl: ^0.17.0
+  crypto: ^3.0.2
+  path_provider: ^2.0.14
+  shared_preferences: ^2.0.13
+  flutter_pickers: ^2.1.1
+  flutter_screenutil: ^5.7.0
+  permission_handler: ^10.2.0
+  font_awesome_flutter: ^10.4.0
+  ##flutter_secure_storage: ^5.0.2
+  carousel_slider: ^4.0.0
+#  flutter_image_compress: ^0.7.0
+  tencent_cos_plus: ^1.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.1.5
+  json_serializable: ^6.1.0
+  json_bigint: ^1.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/img/
+
+  fonts:
+    - family: WorkSansSemiBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-SemiBold.ttf
+
+    - family: WorkSansBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Bold.ttf
+
+    - family: WorkSansMedium
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Medium.ttf
